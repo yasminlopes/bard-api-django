@@ -1,0 +1,9 @@
+# Enviroment variables
+bard_api/bard_api/.env
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Venv
+venv/
