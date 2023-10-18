@@ -66,4 +66,8 @@ class BardApiView(APIView):
         if conversation_id not in BardApiView.history:
             BardApiView.history[conversation_id] = []
 
-        BardApiView.history[conversation_id].append({'question': question, 'answer': answer})
+        BardApiView.history[conversation_id].append({
+            'question': question,
+            'answer': answer,
+            'conversation_id': conversation_id,
+        })
