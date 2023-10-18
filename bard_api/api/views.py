@@ -6,7 +6,7 @@ import os
 
 
 class BardApiView(APIView):
-    conversation_id = None
+    history = {}
 
     def post(self, request):
         cookie_dict = {
@@ -23,6 +23,7 @@ class BardApiView(APIView):
             answer = bard_response['content'].split('\r\n')
 
             data_object = {
+                'question': question,
                 'answer': answer,
                 'conversation_id': bard_response['conversation_id'],
             }
@@ -31,8 +32,21 @@ class BardApiView(APIView):
                 'bard': data_object,
             }
 
-            BardApiView.conversation_id = bard_response['conversation_id']
+            BardApiView.add_to_history(bard_response['conversation_id'], question, answer)
 
             return Response(response)
         except Exception as error:
             return Response({'error': str(error)})
+
+    def get(self, request, id_conversation):
+        if id_conversation not in BardApiView.history:
+            return Response({ 'error': 'Conversation ID not found' })
+        
+        return Response(BardApiView.history[id_conversation])
+
+    @staticmethod
+    def add_to_history(conversation_id, question, answer):
+        if conversation_id not in BardApiView.history:
+            BardApiView.history[conversation_id] = []
+
+        BardApiView.history[conversation_id].append({'question': question, 'answer': answer})
