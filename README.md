@@ -27,7 +27,12 @@ python -m venv myvenv
 ```
 pip install -r requirements.txt
 ```
-6. Navegue até a pasta "bard_api" e inicie o servidor com o seguinte comando:
+6. Substitua as variaveis de ambiente
+   - Acesse https://bard.google.com/. Pressione F12 para abrir o console do navegador.
+   - Vá em "Application" > "Cookies"
+   - Procure pelos cookies "__Secure-1PSID" e "__Secure-1PSID_TS", copie o valor desses cookies
+   - Crie um arquivo .env e adicione o valor nas variaveis obtidas pelo arquivo .env.sample
+8. Navegue até a pasta "bard_api" e inicie o servidor com o seguinte comando:
 ```
 cd bard_api
 python manage.py runserver
